@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  documents Document[]
+
+  @@map("admins")
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  title       String
+  fileName    String
+  filePath    String
+  fileSize    Int
+  
+  // Signature field coordinates
+  signatureX  Float?
+  signatureY  Float?
+  signatureWidth  Float?
+  signatureHeight Float?
+  pageNumber  Int      @default(1)
+  
+  // PDF dimensions for coordinate calculation
+  pdfWidth    Float?
+  pdfHeight   Float?
+  
+  // Token for guest access
+  token       String   @unique
+  expiresAt   DateTime
+  
+  // Recipient info
+  recipientName  String?
+  recipientEmail String?
+  
+  // Signature status
+  status      DocumentStatus @default(PENDING)
+  signedAt    DateTime?
+  signaturePath String?
+  signerIp    String?
+  
+  // Relations
+  adminId     String
+  admin       Admin    @relatedFields([adminId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([token])
+  @@index([status])
+  @@index([adminId])
+  @@map("documents")
+}
+
+enum DocumentStatus {
+  PENDING
+  SIGNED
+  EXPIRED
+  CANCELLED
+}
