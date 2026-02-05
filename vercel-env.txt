@@ -1,0 +1,22 @@
+# Environment Variables for Vercel
+# Copy these to Vercel Dashboard > Settings > Environment Variables
+
+# Database (استبدل [YOUR-PASSWORD] بكلمة المرور من Supabase)
+DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.xxxxx.supabase.co:5432/postgres
+
+# JWT Secret (استخدم هذا أو ولّد واحد جديد)
+JWT_SECRET=your-super-secret-jwt-key-minimum-32-characters-long
+
+# Base URL (استبدل بعنوان مشروعك في Vercel)
+BASE_URL=https://your-project.vercel.app
+NEXT_PUBLIC_BASE_URL=https://your-project.vercel.app
+
+# File Upload
+MAX_FILE_SIZE=52428800
+UPLOAD_DIR=./public/uploads
+
+# Token Expiry
+TOKEN_EXPIRY_DAYS=30
+
+# Environment
+NODE_ENV=production
