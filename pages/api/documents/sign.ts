@@ -5,6 +5,14 @@ import { getClientIp } from '../../../lib/utils';
 import path from 'path';
 import fs from 'fs';
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '50mb',
+    },
+  },
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

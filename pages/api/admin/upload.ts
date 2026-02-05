@@ -8,6 +8,7 @@ import { generateDocumentToken, calculateExpiryDate, sanitizeFilename } from '..
 export const config = {
   api: {
     bodyParser: false,
+    sizeLimit: '50mb',
   },
 };
 

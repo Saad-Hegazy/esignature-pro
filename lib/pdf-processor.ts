@@ -82,7 +82,8 @@ export async function overlaySignatureOnPDF(
 
   } catch (error) {
     console.error('Error overlaying signature on PDF:', error);
-    throw new Error(`Failed to overlay signature: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`Failed to overlay signature: ${errorMessage}`);
   }
 }
 
@@ -108,7 +109,8 @@ export async function getPDFDimensions(pdfPath: string, pageNumber: number = 1):
     };
   } catch (error) {
     console.error('Error getting PDF dimensions:', error);
-    throw new Error(`Failed to get PDF dimensions: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`Failed to get PDF dimensions: ${errorMessage}`);
   }
 }
 
@@ -122,7 +124,8 @@ export async function getPDFPageCount(pdfPath: string): Promise<number> {
     return pdfDoc.getPageCount();
   } catch (error) {
     console.error('Error getting PDF page count:', error);
-    throw new Error(`Failed to get PDF page count: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`Failed to get PDF page count: ${errorMessage}`);
   }
 }
 
@@ -152,6 +155,7 @@ export function saveSignatureImage(dataUrl: string, outputPath: string): void {
     fs.writeFileSync(outputPath, buffer);
   } catch (error) {
     console.error('Error saving signature image:', error);
-    throw new Error(`Failed to save signature image: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`Failed to save signature image: ${errorMessage}`);
   }
 }
